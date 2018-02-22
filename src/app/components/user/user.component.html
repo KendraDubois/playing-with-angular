@@ -1,0 +1,74 @@
+<h1>{{name}}</h1>
+<ul>
+  <li>Age: {{age}}</li>
+  <li>Email: {{email}}</li>
+  <li>{{address.street}} {{address.city}}, {{address.state}}</li>
+</ul>
+
+<button (click)="toggleEdit()">Edit User</button>
+<button (click)="changeName()">Click me to change user's name to Kyon</button>
+
+<!-- To be able to do this below, we need to import the FormsModule -->
+<!-- Based on this form, you could add this information to a database if you had that set up-->
+<div *ngIf=isEdit>
+  <h1>Edit user</h1>
+  <form>
+    <div>
+      <label for="name">Name: </label><br>
+      <!-- Note this part:
+      [(ngModel)]="name" name="name" 
+      has been added so that we can bind "name" to the name variable-->
+      <input type="text" [(ngModel)]="name" name="name">
+    </div>
+    <div>
+        <label for="age">Age: </label><br>
+        <input type="number" [(ngModel)]="age" name="age">
+    </div>
+    <div>
+        <label for="email">Email: </label><br>
+        <input type="text" [(ngModel)]="email" name="email">    
+    </div>
+    <div>
+        <label for="street">Street: </label><br>
+        <input type="text" [(ngModel)]="address.street" name="street">    
+    </div>
+    <div>
+        <label for="city">City: </label><br>
+        <input type="text" [(ngModel)]="address.city" name="city">    
+    </div>
+    <div>
+        <label for="state">State: </label><br>
+        <input type="text" [(ngModel)]="address.state" name="state">    
+    </div>
+  </form>
+</div>
+
+<h1>{{name}}'s Hobbies</h1>
+<ul>
+  <!-- ngFor loops are the best/most common ForLoops in Angular -->
+ <!-- <li *ngFor="let hobby of hobbies">{{hobby}}</li> -->
+  <li *ngFor="let hobby of hobbies; let i = index">{{i + 1}}: {{hobby}}
+    <button (click)="deleteHobby(hobby)">X</button>
+  </li>
+</ul>
+
+<!-- To add this, we must create a function called onClick() in our .ts file -->
+<button (click)="onClick()">Click me to add a new hobby</button>
+
+<h1>Form to add Hobbies on 'Enter'</h1>
+<!-- Note this hobby.value comes from the #hobby input below 
+that a user enters!
+addHobby is a function we are creating-->
+<form (submit)="addHobby(hobby.value)">
+  <div>
+    <label for="hobby">Add Hobby</label>
+    <input type="text" #hobby>
+  </div>
+</form>
+
+<h1>Json posts grabbed from random website</h1>
+<div *ngFor="let post of posts">
+  <h4>{{post.title}}</h4>
+  <p>{{post.body}}</p>
+
+</div>
